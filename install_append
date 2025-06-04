@@ -1,0 +1,3 @@
+# Remove extraneous copies of license files that we already put in -licenses
+rm -f %{buildroot}/usr/lib/xpu-smi/resources/*/*License*.txt
+rm -f %{buildroot}/usr/lib/xpu-smi/resources/*/LICENSE

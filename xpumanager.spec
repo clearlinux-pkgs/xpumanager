@@ -7,7 +7,7 @@
 #
 Name     : xpumanager
 Version  : 1.2.41
-Release  : 2
+Release  : 4
 URL      : https://github.com/intel/xpumanager/archive/V1.2.41/xpumanager-1.2.41.tar.gz
 Source0  : https://github.com/intel/xpumanager/archive/V1.2.41/xpumanager-1.2.41.tar.gz
 Summary  : Intel(r) Performance Counter Monitor
@@ -88,7 +88,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1749075471
+export SOURCE_DATE_EPOCH=1749078027
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -125,7 +125,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1749075471
+export SOURCE_DATE_EPOCH=1749078027
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/xpumanager
 cp %{_builddir}/'xpumanager-%{version}/core/resources/amcfw/Intel Simplified Software License August 2021_Final_08.20.21_v2.txt' %{buildroot}/usr/share/package-licenses/xpumanager/e89dc4e901fb004ec02702b17b91015e236fac60 || :
@@ -148,6 +148,11 @@ GOAMD64=v2
 pushd clr-build
 %make_install
 popd
+## install_append content
+# Remove extraneous copies of license files that we already put in -licenses
+rm -f %{buildroot}/usr/lib/xpu-smi/resources/*/*License*.txt
+rm -f %{buildroot}/usr/lib/xpu-smi/resources/*/LICENSE
+## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -158,8 +163,6 @@ popd
 /usr/lib/xpu-smi/config/vgpu.conf
 /usr/lib/xpu-smi/config/xpum.conf
 /usr/lib/xpu-smi/config/xpum.conf.template
-"/usr/lib/xpu-smi/resources/amcfw/Intel Simplified Software License August 2021_Final_08.20.21_v2.txt"
-/usr/lib/xpu-smi/resources/kernels/LICENSE
 /usr/lib/xpu-smi/resources/kernels/test_multiple_memory_allocations.cl
 /usr/lib/xpu-smi/resources/kernels/test_multiple_memory_allocations.spv
 /usr/lib/xpu-smi/resources/kernels/ze_dp_compute.cl
@@ -170,7 +173,6 @@ popd
 /usr/lib/xpu-smi/resources/kernels/ze_int_compute.spv
 /usr/lib/xpu-smi/resources/kernels/ze_sp_compute.cl
 /usr/lib/xpu-smi/resources/kernels/ze_sp_compute.spv
-/usr/lib/xpu-smi/resources/mediadata/LICENSE
 /usr/lib/xpu-smi/resources/mediadata/test_stream.264
 /usr/lib/xpu-smi/resources/mediadata/test_stream_1080p.265
 /usr/lib/xpu-smi/resources/mediadata/test_stream_4K.265
