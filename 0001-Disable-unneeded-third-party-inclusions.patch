@@ -1,0 +1,44 @@
+From 813ac51c46ea8aeae98e5e5092db3b2717a799f0 Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Wed, 4 Jun 2025 14:47:14 -0700
+Subject: [PATCH] Disable unneeded third-party inclusions
+
+and use system-provided alternatives.
+---
+ CMakeLists.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f98e33d..3eeb804 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -4,6 +4,7 @@ if(NOT DEFINED WORK_PATH)
+   set(WORK_PATH ${CMAKE_CURRENT_BINARY_DIR})
+ endif()
+ 
++INCLUDE(FindPkgConfig)
+ include(.cmake/xpum_version.cmake)
+ include(.cmake/os_release_info.cmake)
+ 
+@@ -74,8 +75,6 @@ message(STATUS "CMAKE_PROJECT_VERSION: ${CMAKE_PROJECT_VERSION}")
+ if(EXISTS ${CMAKE_CURRENT_LIST_DIR}/third_party/googletest)
+   add_subdirectory(third_party/googletest)
+ endif()
+-add_subdirectory(third_party/spdlog)
+-add_subdirectory(third_party/hwloc)
+ add_subdirectory(third_party/pcm/pcm-iio-gpu)
+ 
+ add_subdirectory(core)
+@@ -101,7 +100,8 @@ if(BUILD_DOC)
+   endif()
+ endif()
+ 
+-add_dependencies(xpum lib_hwloc)
++pkg_check_modules(HWLOC IMPORTED_TARGET hwloc)
++target_link_libraries(xpum PRIVATE PkgConfig::HWLOC)
+ if(EXISTS ${CMAKE_CURRENT_LIST_DIR}/core/test)
+   add_dependencies(test_xpum_api lib_hwloc)
+ endif()
+-- 
+2.49.0
+
