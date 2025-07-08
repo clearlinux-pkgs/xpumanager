@@ -6,10 +6,10 @@
 # autospec commit: 65cf152
 #
 Name     : xpumanager
-Version  : 1.2.41
-Release  : 5
-URL      : https://github.com/intel/xpumanager/archive/V1.2.41/xpumanager-1.2.41.tar.gz
-Source0  : https://github.com/intel/xpumanager/archive/V1.2.41/xpumanager-1.2.41.tar.gz
+Version  : 1.3.0
+Release  : 6
+URL      : https://github.com/intel/xpumanager/archive/V1.3.0/xpumanager-1.3.0.tar.gz
+Source0  : https://github.com/intel/xpumanager/archive/V1.3.0/xpumanager-1.3.0.tar.gz
 Summary  : Intel(r) Performance Counter Monitor
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 MIT
@@ -79,8 +79,8 @@ license components for the xpumanager package.
 
 
 %prep
-%setup -q -n xpumanager-1.2.41
-cd %{_builddir}/xpumanager-1.2.41
+%setup -q -n xpumanager-1.3.0
+cd %{_builddir}/xpumanager-1.3.0
 %patch -P 1 -p1
 
 %build
@@ -88,7 +88,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1750256187
+export SOURCE_DATE_EPOCH=1751983332
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -125,7 +125,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1750256187
+export SOURCE_DATE_EPOCH=1751983332
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/xpumanager
 cp %{_builddir}/xpumanager-%{version}/LICENSE.md %{buildroot}/usr/share/package-licenses/xpumanager/ed8b37fda2f9050d34d647cce7c56ef5312b45b9 || :
@@ -188,7 +188,7 @@ rm -f %{buildroot}/usr/lib/xpu-smi/resources/*/LICENSE
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libxpum.so.1
-/usr/lib64/libxpum.so.1.2.41
+/usr/lib64/libxpum.so.1.3.0
 
 %files license
 %defattr(0644,root,root,0755)
